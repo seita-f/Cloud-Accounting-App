@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block contents %}
+
+    <h1>Hello Register</h1>
+    {% if AccountCreate %}
+       <h1>Registered :)</h1>
+    {% else %}
+           <table>
+               <form enctype="multipart/form-data" method="post">
+                   {% csrf_token %}
+                   {{ account_form.as_table }}      {# id, email address, password #}
+                   {{ add_account_form.as_table }}　 {# name, surname #}
+                   <tr><td></td><td>
+                   <input class="btn" type="submit" name="" value="Register">
+                   </td></tr>
+               </form>
+           </table>
+    {% endif %}
+
+    <p>Already have an account?</p>
+    <a href="{% url 'expenses:login' %}">Login</a>
+{% endblock %}
