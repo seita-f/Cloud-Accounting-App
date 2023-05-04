@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from .views import ExpenseListView
 
 app_name = 'expenses'
 
@@ -19,7 +20,6 @@ urlpatterns = [
     # Logout page
     path('logout', views.Logout, name="logout"),
 
-    # Feedback Page
-    # path('feedback/<uuid:url_uuid>', views.FeedBack_page, name='feedback'),  # unique URL
-
+    # Expenses ListView
+    # path('expense/list/<uuid:url_uuid>', ExpenseListView.as_view(), name='expense-list'),
 ]
