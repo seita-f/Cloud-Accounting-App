@@ -36,7 +36,16 @@ class ExpenseSearchForm(forms.ModelForm):
     from_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
     to_date = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
 
-    # # Widgets for multiple categories
+    class Meta:
+        model = Expense
+        fields = ('name', 'from_date', 'to_date',)  # add fields
+
+    def __init__(self, *args, **kwargs):  # pass the login user
+        super().__init__(*args, **kwargs)
+        self.fields['name'].required = False
+
+
+# # Widgets for multiple categories
     # categories = forms.ModelMultipleChoiceField(
     #     queryset=Category.objects.all(),
     #     widget=forms.CheckboxSelectMultiple,
@@ -51,11 +60,3 @@ class ExpenseSearchForm(forms.ModelForm):
     #     ('date_desc', 'Date (Descending)'),
     # )
     # sort = forms.ChoiceField(choices=sort_choices, required=False)
-
-    class Meta:
-        model = Expense
-        fields = ('name', 'from_date', 'to_date', )  # add fields
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].required = False

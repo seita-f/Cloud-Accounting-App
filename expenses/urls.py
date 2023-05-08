@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ExpenseListView, ExpenseCreateView
+from .views import ExpenseListView, ExpenseCreateView, ExpenseUpdateDeleteView
 from .models import Expense
 from django.urls import reverse
 
@@ -31,6 +31,13 @@ urlpatterns = [
 
     # Create Expenses
     path('expense/create/',
-             ExpenseCreateView.as_view(),
-             name='expense-create'),
+        ExpenseCreateView.as_view(),
+        name='expense-create'),
+
+    # Update / Delete Expenses
+    path('expense/list/<uuid:url_uuid>/<int:pk>/', ExpenseUpdateDeleteView.as_view(
+
+        ),
+        name='expense-edit'),
+
 ]

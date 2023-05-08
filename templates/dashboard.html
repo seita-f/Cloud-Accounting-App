@@ -6,7 +6,7 @@
     <h1>Hello, {{ user_account.user.username }} :)</h1>
 
     <a href="{% url 'expenses:expense-create' %}">Add Expense</a>
-
+{#    <a href="{% url 'expenses:expense-create' %}">Add Expense</a>#}
     <form method="get" action="">
       {{form.as_p}}
       <button type="submit">search</button>
@@ -33,11 +33,10 @@
             <td>{{ obj.name|default:"-" }}</td>
             <td>{{ obj.amount|floatformat:2 }}</td>
             <td>{{obj.date}}</td>
-{#            <td>#}
-{#              <a href="{% url 'expenses:expense-edit' obj.id %}">edit</a>#}
-{#              <a href="{% url 'expenses:expense-delete' obj.id %}">delete</a>#}
-{#            </td>#}
-          </tr>
+            <td>
+                <a href="{% url 'expenses:expense-edit' userid.useraccount.random_url obj.id %}">edit</a>
+            </td>
+            </tr>
           {% empty %}
           <tr>
             <td colspan="5">no items</td>

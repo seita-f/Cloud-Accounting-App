@@ -115,7 +115,6 @@ def index(request):
     return render(request, "index.html")
 
 
-
 '''
 Expenses
 '''
@@ -197,4 +196,33 @@ class ExpenseCreateView(CreateView):
         expense.user = self.request.user
         expense.save()
         return HttpResponseRedirect(reverse('expenses:dashboard', args=[self.request.user.useraccount.random_url]))
+
+    # Override and remove user choice from form
+    def get_form(self, form_class=None):
+        form = super(ExpenseCreateView, self).get_form(form_class)
+        form.fields.pop('user')
+        return form
+
+
+'''
+update and delete
+'''
+class ExpenseUpdateDeleteView(UpdateView, DeleteView):
+    model = Expense
+    fields = '__all__'
+    template_name = 'expenses/edit.html'
+
+    def get_success_url(self):
+        return HttpResponseRedirect(reverse('expenses:dashboard', args=[self.request.user.useraccount.random_url]))
+
+    def form_valid(self, form):
+        expense = form.save(commit=False)
+        expense.user = self.request.user
+        expense.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def delete(self, request, *args, **kwargs):
+        expense = self.get_object()
+        expense.delete()
+        return HttpResponseRedirect(self.get_success_url())
 

@@ -40,7 +40,8 @@ Category
 
 class Category(models.Model):
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  # set User as a ForeignKey
+    # I will let category be an independent model
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=50, unique=True)
 
     class Meta:
