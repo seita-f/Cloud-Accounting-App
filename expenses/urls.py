@@ -35,9 +35,8 @@ urlpatterns = [
         name='expense-create'),
 
     # Update / Delete Expenses
-    path('expense/list/<uuid:url_uuid>/<int:pk>/', ExpenseUpdateDeleteView.as_view(
-
+    path('expense/list/<uuid:url_uuid>/<int:pk>/',
+         ExpenseUpdateDeleteView.as_view(
         ),
         name='expense-edit'),
-
 ]

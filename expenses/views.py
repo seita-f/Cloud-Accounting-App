@@ -2,19 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect            # Rediret
 
-# For Login and Logout
+# ----- For Login and Logout -----
 from .models import UserAccount                  # User Account model
-from django.views.generic import TemplateView    # Template
 from .forms import AccountForm, AddAccountForm   # User Account Form
+from django.views.generic import TemplateView    # Template
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-# For Expenses and Category
-from django.views.generic.list import ListView
-from .forms import ExpenseSearchForm
+# ----- For Expenses and Category -----
 from .models import Expense, Category
+from .forms import ExpenseSearchForm, ExpenseForm
+from django.views.generic.list import ListView
 from .reports import summary_per_category, summary_per_year_month
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
@@ -207,22 +207,26 @@ class ExpenseCreateView(CreateView):
 '''
 update and delete
 '''
-class ExpenseUpdateDeleteView(UpdateView, DeleteView):
+class ExpenseUpdateDeleteView(UpdateView):
     model = Expense
-    fields = '__all__'
     template_name = 'expenses/edit.html'
+    form_class = ExpenseForm
 
     def get_success_url(self):
-        return HttpResponseRedirect(reverse('expenses:dashboard', args=[self.request.user.useraccount.random_url]))
+        # return HttpResponseRedirect(reverse('expenses:dashboard', args=[self.request.user.useraccount.random_url]))
+        return reverse('expenses:dashboard', kwargs={'url_uuid': self.request.user.useraccount.random_url})
 
     def form_valid(self, form):
         expense = form.save(commit=False)
         expense.user = self.request.user
-        expense.save()
+        if self.request.POST.get('action') == 'save':
+            expense.save()
+        elif self.request.POST.get('action') == 'delete':
+            expense.delete()
         return HttpResponseRedirect(self.get_success_url())
 
-    def delete(self, request, *args, **kwargs):
-        expense = self.get_object()
-        expense.delete()
-        return HttpResponseRedirect(self.get_success_url())
-
+    # Not using DeleteView this time
+    # def delete(self, request, *args, **kwargs):
+    #     expense = self.get_object()
+    #     expense.delete()
+    #     return HttpResponseRedirect(self.get_success_url())

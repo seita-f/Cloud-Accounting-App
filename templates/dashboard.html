@@ -34,7 +34,7 @@
             <td>{{ obj.amount|floatformat:2 }}</td>
             <td>{{obj.date}}</td>
             <td>
-                <a href="{% url 'expenses:expense-edit' userid.useraccount.random_url obj.id %}">edit</a>
+                <a href="{% url 'expenses:expense-edit' user.useraccount.random_url obj.id %}">edit</a>
             </td>
             </tr>
           {% empty %}
@@ -44,7 +44,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <p>{{ user.useraccount.random_url }}</p>
     {% include "pagination.html" %}
 
     {# Display total amount spend #}

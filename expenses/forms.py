@@ -44,7 +44,6 @@ class ExpenseSearchForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['name'].required = False
 
-
 # # Widgets for multiple categories
     # categories = forms.ModelMultipleChoiceField(
     #     queryset=Category.objects.all(),
@@ -60,3 +59,11 @@ class ExpenseSearchForm(forms.ModelForm):
     #     ('date_desc', 'Date (Descending)'),
     # )
     # sort = forms.ChoiceField(choices=sort_choices, required=False)
+
+'''
+Expenses Form
+'''
+class ExpenseForm(forms.ModelForm):
+    class Meta:
+        model = Expense
+        exclude = ['user']  # exclude the user field from the form
