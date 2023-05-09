@@ -21,7 +21,7 @@
             <th>name</th>
             <th>amount</th>
             <th>date</th>
-            <th>actions</th>
+            <th>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +44,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <p>{{ user.useraccount.random_url }}</p>
     {% include "pagination.html" %}
 
     {# Display total amount spend #}

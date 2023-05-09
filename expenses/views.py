@@ -19,8 +19,12 @@ from .reports import summary_per_category, summary_per_year_month
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 
-# CRUD
+# ----- CRUD -----
 from django.views.generic import CreateView, UpdateView, DeleteView
+# ----- Login Required -----
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 
 # User Register
 class AccountRegistration(TemplateView):
@@ -68,6 +72,7 @@ class AccountRegistration(TemplateView):
 
         return render(request, "UserAuthentication/register.html", context=self.params)
 
+
 # Log In
 def Login(request):
     # POST
@@ -102,6 +107,7 @@ def Login(request):
     else:
         return render(request, 'UserAuthentication/login.html')
 
+
 # Log out
 @login_required
 def Logout(request):
@@ -118,7 +124,11 @@ def index(request):
 '''
 Expenses
 '''
-class ExpenseListView(ListView):
+class ExpenseListView(LoginRequiredMixin, ListView):
+
+    # User has not logged in yet
+    login_url = '/login/'
+    redirect_field_name = 'dashboard'
 
     # connect to Expense Model
     model = Expense
@@ -186,7 +196,12 @@ class CategoryListView(ListView):
 '''
 Create Expenses
 '''
-class ExpenseCreateView(CreateView):
+class ExpenseCreateView(LoginRequiredMixin, CreateView):
+
+    # User has not logged in yet
+    login_url = '/login/'
+    redirect_field_name = 'dashboard'
+
     model = Expense
     fields = '__all__'
     template_name = 'expenses/create.html'
@@ -207,7 +222,12 @@ class ExpenseCreateView(CreateView):
 '''
 update and delete
 '''
-class ExpenseUpdateDeleteView(UpdateView):
+class ExpenseUpdateDeleteView(LoginRequiredMixin, UpdateView):
+
+    # User has not logged in yet
+    login_url = '/login/'
+    redirect_field_name = 'dashboard'
+
     model = Expense
     template_name = 'expenses/edit.html'
     form_class = ExpenseForm

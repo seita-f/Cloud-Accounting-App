@@ -8,10 +8,8 @@ app_name = 'expenses'
 
 urlpatterns = [
 
+    # First page
     path('', views.index, name='index'),
-
-    # dashboard after user login
-    # path('dashboard/<uuid:url_uuid>', views.dashboard, name='dashboard'),  # unique URL
 
     # Register page
     path('register', views.AccountRegistration.as_view(), name='register'),

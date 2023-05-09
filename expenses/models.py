@@ -33,7 +33,6 @@ class UserAccount(models.Model):
 
 
 # One-to-Many relation (Category - Expenses)
-
 '''
 Category
 '''
