@@ -71,10 +71,10 @@
                     <ul class="navbar-nav d-flex flex-row">
                         {% if user.is_authenticated %}
                             <li class="nav-item ml-3 text-muted">
-                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:expense-create' %}">Add Expense</a>
+                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:expense-create' %}">Expense</a>
                             </li>
                             <li class="nav-item ml-3 text-muted">
-                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:login' %}">Add Category</a>
+                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:category-edit' user.useraccount.random_url %}">Category</a>
                             </li>
                             <li class="nav-item ml-3 text-muted">
                                 <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:login' %}">Log out</a>
