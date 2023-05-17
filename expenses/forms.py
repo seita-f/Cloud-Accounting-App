@@ -8,7 +8,12 @@ User
 '''
 class AccountForm(forms.ModelForm):
     # form for password (not visible)
-    password = forms.CharField(widget=forms.PasswordInput(), label="password")
+    # password = forms.CharField(widget=forms.PasswordInput(), label="password")
+
+    # Form for password (not visible)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}), label="Password")
+    email = forms.CharField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Email")
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}), label="Username")
 
     class Meta():
         # Uer

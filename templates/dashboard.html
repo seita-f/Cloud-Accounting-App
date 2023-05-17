@@ -2,75 +2,110 @@
 {% load static %}
 {% block contents %}
 
-    <h1>Dashboard</h1>
-    <h1>Hello, {{ user_account.user.username }} :)</h1>
+<div class="jumbotron">
+    <div class="content p-3">
+        <div class="page-title border-bottom pb-2">
+            <h2>Expense List</h2>
+        </div>
+        <div class="container pt-3">
+            {% if user.is_authenticated %}
+                <!-- Search Section -->
+                <form class="row g-0 mb-4 mt-2" method="get" action="">
+                <div class="col-sm-6 col-md-8">
+                      <div class="input-group">
+                        {{ form.name }}
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <label class="visually-hidden" for="from-date">From</label>
+                    {{ form.from_date }}
+                    <label class="visually-hidden" for="to-date">To</label>
+                    {{ form.to_date }}
+                </div>
+                </form>
 
-    <a href="{% url 'expenses:expense-create' %}">Add Expense</a>
-{#    <a href="{% url 'expenses:expense-create' %}">Add Expense</a>#}
-    <form method="get" action="">
-      {{form.as_p}}
-      <button type="submit">search</button>
-    </form>
-    <br>
-    <table border="1">
-        <caption>Expenses</caption>
-        <thead>
-          <tr>
-            <th>no.</th>
-            <th>category</th>
-            <th>name</th>
-            <th>amount</th>
-            <th>date</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
+                <br>
+                <!-- List of Expense -->
+                <table class="table">
+                  <caption>Expenses</caption>
+                  <thead class="table-light">
+                    <tr>
+                      <th class="py-3">no.</th>
+                      <th class="py-3">category</th>
+                      <th class="py-3">name</th>
+                      <th class="py-3">amount</th>
+                      <th class="py-3">date</th>
+                      <th class="py-3">Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for obj in object_list %}
+                    <tr>
+                      <td class="py-3">{{ page_obj.start_index|add:forloop.counter0 }}.</td>
+                      <td class="py-3">{{ obj.category|default:"-" }}</td>
+                      <td class="py-3">{{ obj.name|default:"-" }}</td>
+                      <td class="py-3">{{ obj.amount|floatformat:2 }}</td>
+                      <td class="py-3">{{ obj.date }}</td>
+                      <td class="py-3">
+                        <a href="{% url 'expenses:expense-edit' user.useraccount.random_url obj.id %}" class="btn btn-secondary btn-sm" role="button" aria-disabled="true">Edit</a>
+                      </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="6">No items</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
 
-        {% for obj in object_list %}
-          <tr>
-            <td>{{ page_obj.start_index|add:forloop.counter0 }}.</td>
-            <td>{{ obj.category|default:"-" }}</td>
-            <td>{{ obj.name|default:"-" }}</td>
-            <td>{{ obj.amount|floatformat:2 }}</td>
-            <td>{{obj.date}}</td>
-            <td>
-                <a href="{% url 'expenses:expense-edit' user.useraccount.random_url obj.id %}">edit</a>
-            </td>
-            </tr>
-          {% empty %}
-          <tr>
-            <td colspan="5">no items</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% include "pagination.html" %}
+                {% include "pagination.html" %}
 
+                <br>
+                <div class="row">
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col"></div>
+                  <div class="col">
+                      <a href="{% url 'expenses:expense-create' %}" class="btn btn-secondary btn-lg" role="button" aria-disabled="true">Add Expense</a>
+                  </div>
+                </div>
+
+            {% else %}
+                <!-- Show the default message -->
+                <h3>go to login</h3>
+            {% endif %}
+    </div>
+  </div>
+</div>
     {# Display total amount spend #}
-    <p>Total Amount Spend: {{ total_amount|floatformat:2}}</p>
-
-    <hr>
-    <table border="1">
-      <caption>Summary per category</caption>
-      <tr>
-        {% for category, total in summary_per_category.items %}
-        <tr>
-            <td>{{category}}:</td>
-            <td>{{total|floatformat:2}}</td>
-        </tr>
-        {% endfor %}
-      </tr>
-    </table>
-    <table border="1">
-    <caption>Summary per year-month</caption>
-      <tr>
-        {% for month_year, total in summary_per_year_month.items %}
-            <tr>
-                <td>{{month_year}}:</td>
-                <td>{{total|floatformat:2}}</td>
-            </tr>
-        {% endfor %}
-      </tr>
-    </table>
+{#    <p class="txt-white-mild">Total Amount Spend: {{ total_amount|floatformat:2}}</p>#}
+{##}
+{#    <hr>#}
+{#    <table border="1">#}
+{#      <caption class="txt-white-mild">Summary per category</caption>#}
+{#      <tr class="txt-white-mild">#}
+{#        {% for category, total in summary_per_category.items %}#}
+{#        <tr>#}
+{#            <td>{{category}}:</td>#}
+{#            <td>{{total|floatformat:2}}</td>#}
+{#        </tr>#}
+{#        {% endfor %}#}
+{#      </tr>#}
+{#    </table>#}
+{#    <table border="1">#}
+{#    <caption class="txt-white-mild">Summary per year-month</caption>#}
+{#      <tr class="txt-white-mild">#}
+{#        {% for month_year, total in summary_per_year_month.items %}#}
+{#            <tr>#}
+{#                <td>{{month_year}}:</td>#}
+{#                <td>{{total|floatformat:2}}</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#      </tr>#}
+{#    </table>#}
+{#{% else %}#}
+{#    <h1>User does not exist</h1>#}
+{#{% endif %}#}
 
 {% endblock %}
