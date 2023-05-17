@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ExpenseListView, ExpenseCreateView, ExpenseUpdateDeleteView
+from .views import ExpenseListView, ExpenseCreateView, ExpenseUpdateDeleteView, CategoryCreateDeleteView
 from .models import Expense
 from django.urls import reverse
 
@@ -39,13 +39,11 @@ urlpatterns = [
          ExpenseUpdateDeleteView.as_view(
         ),
         name='expense-edit'),
+
+    # Category Create and Delete
+    path('category/list/<uuid:url_uuid>',
+         CategoryCreateDeleteView.as_view(
+         ),
+         name='category-edit'),
+
 ]
-
-
-# urlpatterns += [
-#     path('expense/list/<uuid:url_uuid>',
-#              ExpenseListView.as_view(
-#                  template_name='dashboard.html'
-#              ),
-#              name='dashboard'),
-# ]

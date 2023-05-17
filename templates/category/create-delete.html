@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block contents %}
+
+    <div class="content p-3">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Add</h5>
+            <!-- Add Category Form -->
+            <form method="post" action="{% url 'expenses:category-edit' user.useraccount.random_url %}">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="add">
+              <div class="mb-3">
+                <label for="id_name" class="form-label">Category Name</label>
+                <input type="text" name="name" id="id_name" class="form-control" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <!-- Delete Category Form -->
+            <h5 class="card-title">Delete</h5>
+            <form method="post" action="{% url 'expenses:category-edit' user.useraccount.random_url %}">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="delete">
+              <div class="mb-3">
+                <label for="id_category" class="form-label">Select Category to Delete</label>
+                <select name="category" id="id_category" class="form-select" required>
+                  {% for category in categories %}
+                  <option value="{{ category.id }}">{{ category.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-danger">Delete Category</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -229,7 +229,7 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
 
 
 '''
-update and delete
+Expense: update and delete
 '''
 class ExpenseUpdateDeleteView(LoginRequiredMixin, UpdateView):
 
@@ -261,4 +261,34 @@ class ExpenseUpdateDeleteView(LoginRequiredMixin, UpdateView):
     #     return HttpResponseRedirect(self.get_success_url())
 
 
+'''
+Category: update and delete
+'''
+class CategoryCreateDeleteView(LoginRequiredMixin, CreateView):
 
+    # User has not logged in yet
+    login_url = '/login/'
+    redirect_field_name = 'dashboard'
+
+    model = Category
+    template_name = 'category/create-delete.html'
+    fields = ['name']
+
+
+    def get_success_url(self):
+        # return HttpResponseRedirect(reverse('expenses:dashboard', args=[self.request.user.useraccount.random_url]))
+        return reverse('expenses:dashboard', kwargs={'url_uuid': self.request.user.useraccount.random_url})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
+    def form_valid(self, form):
+        category = form.save(commit=False)
+        category.user = self.request.user
+        if self.request.POST.get('action') == 'add':
+            category.save()
+        elif self.request.POST.get('action') == 'delete':
+            category.delete()
+        return HttpResponseRedirect(self.get_success_url())

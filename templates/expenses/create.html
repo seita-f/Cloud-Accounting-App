@@ -2,21 +2,55 @@
 
 {% block contents %}
 
-        <div class="content p-3">
-        <div class="page-title border-bottom pb-2">
-            <h2>Add Expense</h2>
-        </div>
-        <div class="container-fuild pt-3">
-            {% if user.is_authenticated %}
-                <form method="post" action="">
-                  {% csrf_token %}
-                  {{form.as_p}}
-                  <button type="submit">save</button>
-                </form>
-            {% else %}
-                <!-- Show the default message -->
-                <h3>go to login</h3>
-            {% endif %}
+    <div class="content p-3">
+        <div class="row">
+            <!-- left content (Form) -->
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="content p-3">
+                            <div class="page-title border-bottom pb-2">
+                                <h2>Add Expense</h2>
+                            </div>
+                            <div class="container-fluid pt-3">
+                                {% if user.is_authenticated %}
+                                <form method="post" action="" class="needs-validation" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {% for field in form %}
+                                            <div class="mb-3 row">
+                                                <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label">{{ field.label }}</label>
+                                                <div class="col-sm-8">
+                                                    {{ field }}
+                                                    {% if field.help_text %}
+                                                    <div class="form-text">{{ field.help_text }}</div>
+                                                    {% endif %}
+                                                    <div class="invalid-feedback">
+                                                        {{ field.errors.as_text }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% else %}
+                                <!-- Show the default message -->
+                                <h3>Go to login</h3>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- right content (blank) -->
+            <div class="col-sm-6"></div>
         </div>
     </div>
 
