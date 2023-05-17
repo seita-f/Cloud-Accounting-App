@@ -7,3 +7,5 @@ Cloud accounting software
 ![Screen Shot 2023-05-17 at 14 40 20](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/80d2a835-1f49-4cf8-84a6-f00817abddfa)
 ![Screen Shot 2023-05-17 at 14 40 31](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/44e2f4a5-9c47-4499-a110-d3e70c12d45a)
 ![Screen Shot 2023-05-17 at 14 40 59](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/9e117e17-b392-46cb-98ed-f501509657fe)
+![Screen Shot 2023-05-18 at 0 42 11](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/f34f1a7c-2280-481e-ac3a-db4ac0a4b838)
+![Screen Shot 2023-05-18 at 0 52 54](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/bf333541-7436-4836-b878-00f5d6e66173)
