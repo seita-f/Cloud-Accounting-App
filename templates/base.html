@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html class="h-100">
  <head>
   <title>Accounting App</title>
   <meta charset="UTF-8">
@@ -10,17 +10,94 @@
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
      <!-- Responsive !-->
      <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
-     <!-- JS file !-->
  </head>
- <body>
-{#    <h2><a href="{% url 'expenses:dashboard' %}">Dashboard</a></h2>#}
-{#    <h2><a href="{% url 'expenses:expenses-create' %}">Add Expenses</a></h2>#}
-    <h2><a href="">Graph</a></h2>
-    {% block contents %}
+ <body class="h-100 bg-light">
 
-    {% endblock %}
+    <!-- whole page -->
+    <main class="h-100">
+        <div class="page-wrapper d-flex flex-row h-100 w-100">
 
+          <!-- sidebar menu -->
+            <nav class="sidebar bg-primary bg-gradient h-100">
+                <div class="brand p-4">
+                    <h4>
+                        Accounting App
+                    </h4>
+                </div>
+                <ul class="nav flex-column m-o p-3">
+                    <li class="nav-item mb-2">
+                        {% if user.is_authenticated %}
+                                <a class="nav-link active w-100 h-100" aria-current="page" href="">
+                            {% else %} <!-- redirect to login page -->
+                                <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:login' %}">
+                            {% endif %}
+                                  <!-- dashboard icon -->
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                  </svg>
+                                  <span class="ml-2">Dashboard</span>
+                                </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        {% if user.is_authenticated %}
+                            <a class="nav-link active w-100 h-100" aria-current="page" href="">
+                        {% else %} <!-- redirect to login page -->
+                            <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:login' %}">
+                        {% endif %}
+                                <!-- analytics icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                <span class="ml-2 w-100 h-100">Analytics</span>
+                           </a>
+                    </li>
+                </ul>
+            </nav>
+          <!-- /sidebar menu -->
 
+          <!-- contents (right) -->
+            <div class="page-content w-100">
+
+                <!-- top bar -->
+                <nav class="navbar px-3 bg-light border-bottom shadow-sm">
+                    <div class="navbar-brand toggle-menu">
+                        <button class="btn btn-light btn-sm" id="sidebarToggler">
+                            <i class="fas fa-bars fa-lg"></i>
+                        </button>
+                    </div>
+                    <ul class="navbar-nav d-flex flex-row">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item ml-3 text-muted">
+                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:expense-create' %}">Add Expense</a>
+                            </li>
+                            <li class="nav-item ml-3 text-muted">
+                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:login' %}">Add Category</a>
+                            </li>
+                            <li class="nav-item ml-3 text-muted">
+                                <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:login' %}">Log out</a>
+                            </li>
+                        {% else %}
+                            <a class="nav-item ml-3 text-muted text-decoration-none" href="{% url 'expenses:login' %}">Log in</a>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <!-- /top bar -->
+
+                <!-- contents (under) -->
+                {% block contents %}
+                {% endblock %}
+                <!-- /contents (under side) -->
+            </div>
+          <!-- /contents (right side) -->
+        </div>
+    </main>
+    <!-- / whole page-->
+
+    <!-- JS file !-->
+     <script src="{% static 'js/main.js' %}"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>

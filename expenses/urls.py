@@ -11,6 +11,8 @@ urlpatterns = [
     # First page
     path('', views.index, name='index'),
 
+    # path('', ExpenseListView.as_view(template_name='dashboard.html'), name='dashboard'),
+
     # Register page
     path('register', views.AccountRegistration.as_view(), name='register'),
 
@@ -38,3 +40,12 @@ urlpatterns = [
         ),
         name='expense-edit'),
 ]
+
+
+# urlpatterns += [
+#     path('expense/list/<uuid:url_uuid>',
+#              ExpenseListView.as_view(
+#                  template_name='dashboard.html'
+#              ),
+#              name='dashboard'),
+# ]

@@ -2,10 +2,22 @@
 
 {% block contents %}
 
-<form method="post" action="">
-  {% csrf_token %}
-  {{form.as_p}}
-  <button type="submit">save</button>
-</form>
+        <div class="content p-3">
+        <div class="page-title border-bottom pb-2">
+            <h2>Add Expense</h2>
+        </div>
+        <div class="container-fuild pt-3">
+            {% if user.is_authenticated %}
+                <form method="post" action="">
+                  {% csrf_token %}
+                  {{form.as_p}}
+                  <button type="submit">save</button>
+                </form>
+            {% else %}
+                <!-- Show the default message -->
+                <h3>go to login</h3>
+            {% endif %}
+        </div>
+    </div>
 
 {% endblock %}

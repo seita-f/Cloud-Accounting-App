@@ -36,7 +36,6 @@ class UserAccount(models.Model):
 '''
 Category
 '''
-
 class Category(models.Model):
 
     # I will let category be an independent model

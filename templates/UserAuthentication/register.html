@@ -1,23 +1,65 @@
-{% extends "base.html" %}
+{% extends "UserAuthentication/auth_base.html" %}
 {% load static %}
-{% block contents %}
+{% block account_form %}
 
-    <h1>Hello Register</h1>
     {% if AccountCreate %}
        <h1>Registered :)</h1>
     {% else %}
-           <table>
-               <form enctype="multipart/form-data" method="post">
-                   {% csrf_token %}
-                   {{ account_form.as_table }}      {# id, email address, password #}
-                   {{ add_account_form.as_table }}　 {# name, surname #}
-                   <tr><td></td><td>
-                   <input class="btn" type="submit" name="" value="Register">
-                   </td></tr>
-               </form>
-           </table>
+       <form enctype="multipart/form-data" method="post">
+           <h2 class="fw-bold mb-2 text-uppercase ">Sign Up</h2>
+           <p class=" mb-5">Please enter your username, email and password!</p>
+           {% csrf_token %}
+           <!-- User Name -->
+           <div class="form-outline">
+                <label class="form-label" for="form3Example1">User Name</label>
+                {{ account_form.username }}
+               {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+               {% endif %}
+            </div>
+            <!-- Email Address -->
+            <div class="form-outline">
+                <label class="form-label" for="form3Example1">Email</label>
+                {{ account_form.email }}
+            </div>
+           <!-- Password -->
+            <div class="form-outline">
+                <label class="form-label" for="form3Example1">Password</label>
+                {{ account_form.password }}
+            </div>
+            <!-- Submit button -->
+            <br>
+            <button type="submit" class="btn btn-primary btn-block mb-4" value="Register">
+              Register
+            </button>
+           <!-- Go to Login page -->
+           <p>Already have an account?
+           <a href="{% url 'expenses:login' %}">Login</a>
+           </p>
+       </form>
+{#        <form enctype="multipart/form-data" method="post" action="{% url 'expenses:login' %}">#}
+{#        <h2 class="fw-bold mb-2 text-uppercase ">Sign Up</h2>#}
+{#        <p class=" mb-5">Please enter your username, email and password!</p>#}
+{#        {% csrf_token %}#}
+{#        <!-- User name -->#}
+{#        <div class="form-outline">#}
+{#          <label class="form-label" for="form3Example1">User Name</label>#}
+{#          {{ account_form.username }}#}
+{#        </div>#}
+{##}
+{#        <!-- Password -->#}
+{#        <div class="form-outline mb-4">#}
+{#          <label class="form-label" for="form3Example4">Password</label>#}
+{#          {{ account_form.email }}#}
+{#        </div>#}
+{##}
+{#        <!-- Submit button -->#}
+{#        <button type="submit" class="btn btn-primary btn-block mb-4" value="Login">#}
+{#          Login#}
+{#        </button>#}
+{#        <p class="mb-0  text-center">Don't have an account?#}
+{#          <a href="{% url 'expenses:register' %}">Sign Up</a>#}
+{#        </p>#}
+{#      </form>#}
     {% endif %}
-
-    <p>Already have an account?</p>
-    <a href="{% url 'expenses:login' %}">Login</a>
 {% endblock %}

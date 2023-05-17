@@ -13,7 +13,7 @@
         </span>
 
         {% if page_obj.has_next %}
-             add query to page link so that it keeps filter
+
             <a href="?page={{ page_obj.next_page_number }}
                             {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}
                             {% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">next</a>

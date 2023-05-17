@@ -65,6 +65,7 @@ class AccountRegistration(TemplateView):
 
             # Upgrade user account creation
             self.params["AccountCreate"] = True
+            return render(request, "UserAuthentication/login.html")
 
         else:
             # If the form is not valid
@@ -117,9 +118,17 @@ def Logout(request):
 
 
 # Home page before user log in
-def index(request):
-    return render(request, "index.html")
+# def index(request):
+#     return render(request, "dashboard.html")
 
+
+def index(request):
+    if request.user.is_authenticated:
+        # If user has logged in => Redirect to user page
+        return redirect(reverse('expenses:dashboard', args=[request.user.useraccount.random_url]))
+    else:
+        # If user has not logged in => Redirect to login page
+        return render(request, 'dashboard.html', {'login_url': '/login/'})
 
 '''
 Expenses
@@ -151,7 +160,7 @@ class ExpenseListView(LoginRequiredMixin, ListView):
             from_date = form.cleaned_data.get('from_date')
             to_date = form.cleaned_data.get('to_date')
             # multiple categories
-            categories = form.cleaned_data.get('categories')
+            # categories = form.cleaned_data.get('categories')
             # sort choices
             # sort = form.cleaned_data.get('sort')
 
@@ -168,8 +177,8 @@ class ExpenseListView(LoginRequiredMixin, ListView):
                 queryset = queryset.filter(date__lte=to_date)
 
             # Filter for multiple categories
-            if categories:
-                queryset = queryset.filter(category__in=categories)
+            # if categories:
+            #     queryset = queryset.filter(category__in=categories)
 
         # Total amount spent
         amount_dict = Expense.objects.all().aggregate(Sum('amount'))
@@ -250,3 +259,6 @@ class ExpenseUpdateDeleteView(LoginRequiredMixin, UpdateView):
     #     expense = self.get_object()
     #     expense.delete()
     #     return HttpResponseRedirect(self.get_success_url())
+
+
+
