@@ -26,3 +26,9 @@ $ python manage.py test
 ![Screen Shot 2023-05-17 at 14 40 59](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/9e117e17-b392-46cb-98ed-f501509657fe)
 ![Screen Shot 2023-05-18 at 0 42 11](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/f34f1a7c-2280-481e-ac3a-db4ac0a4b838)
 ![Screen Shot 2023-05-18 at 0 52 54](https://github.com/seita-f/Cloud-Accounting-App/assets/128184233/bf333541-7436-4836-b878-00f5d6e66173)
+
+## Note
+I am trying to add Analysis part now.
+
+## Author
+Seita Fujiwara 2023
