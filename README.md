@@ -1,5 +1,5 @@
 # Cloud-Accounting-App (CRUD)
-Each user can have his own account and make his expenses list. Besides that, he can edit/delete expense, add/delelete category and search item by date and name.
+Each user can have his own account and make his expenses list. Besides that, he can edit/delete expense, add/delelete category and search item by date and name. There is also an analytics part showing summary of expenses and chart.
 
 ## Build With
 - Django
