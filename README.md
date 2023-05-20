@@ -6,6 +6,7 @@ Each user can have his own account and make his expenses list. Besides that, he 
 - Docker
 - Bootstrap
 - PyCharm
+- Chart.js
 
 ## Getting Started
 
