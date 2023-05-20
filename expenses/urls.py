@@ -46,4 +46,10 @@ urlpatterns = [
          ),
          name='category-edit'),
 
+    # Analytics
+    path('expense/analytics/<uuid:url_uuid>',
+         ExpenseListView.as_view(
+            template_name="analytics.html"),
+         name="analytics"),
+
 ]

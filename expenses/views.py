@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Expense, Category
 from .forms import ExpenseSearchForm, ExpenseForm
 from django.views.generic.list import ListView
-from .reports import summary_per_category, summary_per_year_month
+from .reports import summary_per_category, summary_per_year_month, expense_cost_past_month
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 
@@ -130,6 +130,7 @@ def index(request):
         # If user has not logged in => Redirect to login page
         return render(request, 'dashboard.html', {'login_url': '/login/'})
 
+
 '''
 Expenses
 '''
@@ -180,15 +181,18 @@ class ExpenseListView(LoginRequiredMixin, ListView):
             # if categories:
             #     queryset = queryset.filter(category__in=categories)
 
+        # Filter expenses for the logged-in user
+        user_expenses = queryset.filter(user=self.request.user)
+
         # Total amount spent
-        amount_dict = Expense.objects.all().aggregate(Sum('amount'))
-        total_amount = amount_dict['amount__sum']
+        total_amount = user_expenses.aggregate(Sum('amount'))['amount__sum']
 
         return super().get_context_data(
             form=form,
             object_list=queryset,
-            summary_per_category=summary_per_category(queryset),
-            summary_per_year_month=summary_per_year_month(queryset),
+            summary_per_category=summary_per_category(user_expenses),
+            summary_per_year_month=summary_per_year_month(user_expenses),
+            summary_past_month=expense_cost_past_month(user_expenses),
             total_amount=total_amount,
             **kwargs)
 
@@ -292,3 +296,4 @@ class CategoryCreateDeleteView(LoginRequiredMixin, CreateView):
         elif self.request.POST.get('action') == 'delete':
             category.delete()
         return HttpResponseRedirect(self.get_success_url())
+

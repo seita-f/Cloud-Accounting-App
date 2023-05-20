@@ -60,7 +60,6 @@
                 </table>
 
                 {% include "pagination.html" %}
-
                 <br>
                 <div class="row">
                   <div class="col"></div>
@@ -78,34 +77,5 @@
     </div>
   </div>
 </div>
-    {# Display total amount spend #}
-{#    <p class="txt-white-mild">Total Amount Spend: {{ total_amount|floatformat:2}}</p>#}
-{##}
-{#    <hr>#}
-{#    <table border="1">#}
-{#      <caption class="txt-white-mild">Summary per category</caption>#}
-{#      <tr class="txt-white-mild">#}
-{#        {% for category, total in summary_per_category.items %}#}
-{#        <tr>#}
-{#            <td>{{category}}:</td>#}
-{#            <td>{{total|floatformat:2}}</td>#}
-{#        </tr>#}
-{#        {% endfor %}#}
-{#      </tr>#}
-{#    </table>#}
-{#    <table border="1">#}
-{#    <caption class="txt-white-mild">Summary per year-month</caption>#}
-{#      <tr class="txt-white-mild">#}
-{#        {% for month_year, total in summary_per_year_month.items %}#}
-{#            <tr>#}
-{#                <td>{{month_year}}:</td>#}
-{#                <td>{{total|floatformat:2}}</td>#}
-{#            </tr>#}
-{#        {% endfor %}#}
-{#      </tr>#}
-{#    </table>#}
-{#{% else %}#}
-{#    <h1>User does not exist</h1>#}
-{#{% endif %}#}
 
 {% endblock %}

@@ -27,7 +27,7 @@
                 <ul class="nav flex-column m-o p-3">
                     <li class="nav-item mb-2">
                         {% if user.is_authenticated %}
-                                <a class="nav-link active w-100 h-100" aria-current="page" href="">
+                                <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:dashboard' user.useraccount.random_url %}">
                             {% else %} <!-- redirect to login page -->
                                 <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:login' %}">
                             {% endif %}
@@ -41,7 +41,7 @@
                     </li>
                     <li class="nav-item mb-2">
                         {% if user.is_authenticated %}
-                            <a class="nav-link active w-100 h-100" aria-current="page" href="">
+                            <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:analytics' user.useraccount.random_url %}">
                         {% else %} <!-- redirect to login page -->
                             <a class="nav-link active w-100 h-100" aria-current="page" href="{% url 'expenses:login' %}">
                         {% endif %}
@@ -96,8 +96,8 @@
     </main>
     <!-- / whole page-->
 
-    <!-- JS file !-->
-     <script src="{% static 'js/main.js' %}"></script>
+    <!-- Chart.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
