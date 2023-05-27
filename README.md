@@ -15,7 +15,7 @@ Each user can have his own account and make his expenses list. Besides that, he 
 $ docker-compose up
 
 # Run the test.py
-$ docker exec -it  <web container> /bin/bash
+$ docker exec -it  ledger-app_web_1 /bin/bash
 $ python manage.py test
 ```
 ## Screenshot
